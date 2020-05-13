@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MVCProject.DB;
@@ -9,9 +10,10 @@ using MVCProject.Models;
 
 namespace MVCProject.Controllers
 {
+    [Authorize]
     public class TemaController : Controller
     {
-        [HttpGet]
+        [HttpGet]        
         public IActionResult Index()
         {
             var context = new AppPruebaContext();
