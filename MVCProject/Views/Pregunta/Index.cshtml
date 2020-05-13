@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Preguntas</h2>
+<h3>@Model.Titulo (@Model.Categoria.Nombre)</h3>
+
+<div class="row">
+    <div class="col-xs-12 text-right">
+        <a href="/pregunta/create?temaId=@Model.Id" class="btn btn-default">Create</a>
+    </div>
+</div>
+<br />
+@foreach (var pregunta in Model.Preguntas)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-10">
+                    @pregunta.Descripcion
+                </div>
+                <div class="col-xs-2 text-right">
+                    <a href="/alternativa/create?preguntaId=@pregunta.Id">Agregar</a>
+                </div>
+            </div>
+        </div>
+        <!-- List group -->
+        <ul class="list-group">
+            @foreach (var item in pregunta.Alternativas)
+            {
+                <li class="list-group-item">
+                    @item.Resumen 
+                    @if (item.EsCorrecto)
+                    {                    
+                        <i class="glyphicon glyphicon-ok"></i>
+                    }
+                </li>
+            }
+        </ul>
+    </div>
+}
+
+

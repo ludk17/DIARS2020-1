@@ -1,0 +1,21 @@
+﻿@{
+    Layout = null;
+}
+
+
+<table>
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>@item.Id</td>
+        <td>@item.Username</td>
+        <td>
+            <a href="/home/edit?id=@item.Id">Editar</a> |
+            <a href="/home/delete?id=@item.Id">Eliminar</a>
+        </td>
+    </tr>
+    }
+</table>
+
+
+

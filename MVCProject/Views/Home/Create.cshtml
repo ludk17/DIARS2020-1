@@ -1,0 +1,23 @@
+﻿
+@{
+    Layout = null;
+}
+
+<h2>Create</h2>
+
+<form action="/home/create" method="post">
+
+    <label>Usuario</label>
+    <input type="text" name="Username" />
+    @Html.ValidationMessage("Username")
+
+    <label>Password</label>
+    <input type="password" name="Password" />
+    @Html.ValidationMessage("Password")
+
+    <button>Guardar</button>
+
+</form>
+
+
+

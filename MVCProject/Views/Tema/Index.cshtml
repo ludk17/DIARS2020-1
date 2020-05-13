@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Temas</h2>
+
+<a href="/tema/create" class="btn btn-default">Nuevo Tema</a>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Titulo</th>
+            <th>Categoría</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tema in Model)
+        {
+        <tr>
+            <td>@tema.Id</td>
+            <td>@tema.Titulo</td>
+            <td>@tema.Categoria.Nombre</td>
+            <td>
+                <a href="/pregunta/index?temaId=@tema.Id">Preguntas</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+    
+</table>
+
+
