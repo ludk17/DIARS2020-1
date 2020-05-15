@@ -3,16 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MVCProject.DB;
 using MVCProject.Models;
+using MVCProject.Extensions;
 
 namespace MVCProject.Controllers
 {
+
+   
+
     [Authorize]
     public class TemaController : Controller
     {
+
+
+        [HttpGet]
+        public String Prueba()
+        {
+            var user = HttpContext.Session.Get<User>("SessionLoggedUser");
+
+            return user.Username;
+        }
+
+
+        [HttpGet]
+        public string GetLoggedUser()
+        {
+            var loggedUser = HttpContext.Session.GetString("LoggedUser");
+            return loggedUser;
+        }
+
         [HttpGet]        
         public IActionResult Index()
         {
