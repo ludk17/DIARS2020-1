@@ -17,32 +17,17 @@ namespace MVCProject.Controllers
 
     [Authorize]
     public class TemaController : Controller
-    {
-
-
-        [HttpGet]
-        public String Prueba()
-        {
-            var user = HttpContext.Session.Get<User>("SessionLoggedUser");
-
-            return user.Username;
-        }
-
-
-        [HttpGet]
-        public string GetLoggedUser()
-        {
-            var loggedUser = HttpContext.Session.GetString("LoggedUser");
-            return loggedUser;
-        }
+    {       
 
         [HttpGet]        
         public IActionResult Index()
         {
+            var usserLogged = HttpContext.Session.Get<User>("SessionLoggedUser");
+
             var context = new AppPruebaContext();
             var model = context.Temas
-                //.Include("Categoria")
                 .Include(o => o.Categoria)
+                .Where(o => o.UserId == usserLogged.Id)
                 .ToList();
             return View(model);
         }
@@ -60,6 +45,7 @@ namespace MVCProject.Controllers
         [HttpPost]
         public IActionResult Create(Tema tema)
         {
+            var usserLogged = HttpContext.Session.Get<User>("SessionLoggedUser");
             var context = new AppPruebaContext();
 
             if (!ModelState.IsValid)
@@ -67,6 +53,8 @@ namespace MVCProject.Controllers
                 ViewBag.Categorias = context.Categorias.ToList();                
                 return View(tema);
             }
+
+            tema.UserId = usserLogged.Id;
 
             context.Temas.Add(tema);
             context.SaveChanges();

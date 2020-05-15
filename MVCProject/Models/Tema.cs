@@ -13,6 +13,9 @@ namespace MVCProject.Models
         public string Titulo { get; set; }
         [Required]
         public int CategoriaId { get; set; }
+
+        public int UserId { get; set; }
+
         public Categoria Categoria { get; set; }
         public List<Pregunta> Preguntas { get; set; }
     }
