@@ -2,20 +2,35 @@
     Layout = null;
 }
 
-
-<table>
-    @foreach (var item in Model)
-    {
-    <tr>
-        <td>@item.Id</td>
-        <td>@item.Username</td>
-        <td>
-            <a href="/home/edit?id=@item.Id">Editar</a> |
-            <a href="/home/delete?id=@item.Id">Eliminar</a>
-        </td>
-    </tr>
+<style>
+    .red {
+        color: red;
     }
-</table>
+
+</style>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Introducción a JS y jQuery</title>
+</head>
+<body>
+    <h1 id="titulo">Hola mundo</h1>
+    <button>Cambiar color</button>
+
+    <div id="contenido">
+        <div>
+            <p>Parrafo</p>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="~/js/main.js"></script>
+</body>
+</html>
+
+
 
 
 
