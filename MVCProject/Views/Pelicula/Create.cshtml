@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Crear pelicula</h2>
+
+<div class="row">
+    <div class="col-md-6">
+
+        <form action="/pelicula/create" method="post" enctype="multipart/form-data">
+
+            <div class="form-group">
+                <label>Código</label>
+                <input type="text" class="form-control" name="Code" value="@Model.Code" />
+                @Html.ValidationMessage("Code")
+            </div>
+
+            <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" class="form-control" name="Name" value="@Model.Name" />
+                @Html.ValidationMessage("Name")
+            </div>
+
+            <div class="form-group">
+                <label>Director</label>
+                <select class="form-control" name="Director">
+                    <option>-- Seleccione valor --</option>
+                    @foreach (var item in ViewBag.Directores)
+                    {
+                        <option value="@item">@item</option>
+                    }
+                </select>
+                @Html.ValidationMessage("Director")
+            </div>
+
+            <div class="form-group">
+                <label>Año</label>
+                <input type="text" class="form-control" name="Year" value="@Model.Year" />
+                @Html.ValidationMessage("Year")
+            </div>
+
+
+            <div class="form-group">
+                Imagen
+                <input type="file" name="Imagen" />
+            </div>
+
+            <button class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+</div>
+

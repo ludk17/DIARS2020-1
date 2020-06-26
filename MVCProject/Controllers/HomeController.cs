@@ -12,44 +12,41 @@ namespace MVCProject.Controllers
 {
     public class HomeController : Controller
     {
-        private int numero = 0;
         
         [HttpGet]
-        public ViewResult Index()
-        {            
-            var context = new AppPruebaContext();
-            var users = context.Users.ToList(); // select * from User
-
-            return View(users);
-        }
-
-        [HttpGet]
-        public ViewResult Create()
+        public ViewResult Index(int rows)
         {
+            ViewBag.Rows = rows;
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(User user)
+        public ViewResult Create(List<Producto> productos)
         {
-            var context = new AppPruebaContext();
-
-            if (user.Username != null && user.Username.ToLower().Contains("z"))
-                ModelState.AddModelError("Username", "Username no debe contener z");
-            if (user.Username != null && !user.Username.ToLower().Contains("."))
-                ModelState.AddModelError("Username", "Username debe contenet un .");
-
-            if (ModelState.IsValid)
-            {
-                context.Users.Add(user);
-                context.SaveChanges();
-
-                return RedirectToAction("Index");
-            }
-
-            return View("Create");
-            
+            return View();
         }
+
+        //[HttpPost]
+        //public ActionResult Create(User user)
+        //{
+        //    var context = new AppPruebaContext();
+
+        //    if (user.Username != null && user.Username.ToLower().Contains("z"))
+        //        ModelState.AddModelError("Username", "Username no debe contener z");
+        //    if (user.Username != null && !user.Username.ToLower().Contains("."))
+        //        ModelState.AddModelError("Username", "Username debe contenet un .");
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        context.Users.Add(user);
+        //        context.SaveChanges();
+
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    return View("Create");
+            
+        //}
 
         [HttpGet]
         public ViewResult Edit(int id)

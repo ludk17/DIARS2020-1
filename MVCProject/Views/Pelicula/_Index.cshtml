@@ -1,0 +1,33 @@
+﻿
+@{
+    Layout = null;
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Director</th>
+            <th>Año</th>
+            <th>Es Favorito</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+        <tr>
+            <td>@item.Code</td>
+            <td>@item.Name</td>
+            <td>@item.Director</td>
+            <td>@item.Year</td>
+            <td>@item.IsFavorite</td>
+            <td>
+                <img height="100" src="~/images/@item.Imagen"/>
+            </td>
+        </tr>
+
+        }
+    </tbody>
+</table>

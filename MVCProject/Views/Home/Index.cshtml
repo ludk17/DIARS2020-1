@@ -1,36 +1,42 @@
-﻿@{
-    Layout = null;
-}
+﻿
+<br />
 
-<style>
-    .red {
-        color: red;
-    }
+<a id="add" class="btn btn-primary">añadir fila</a>
 
-</style>
+<form action="/home/create" method="post">
 
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre Productos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <input type="text" name="productos[0].Nombre" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>Introducción a JS y jQuery</title>
-</head>
-<body>
-    <h1 id="titulo">Hola mundo</h1>
-    <button>Cambiar color</button>
+    
 
-    <div id="contenido">
-        <div>
-            <p>Parrafo</p>
-        </div>
-    </div>
+    <button>Guardar </button>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+</form>
 
-    <script src="~/js/main.js"></script>
-</body>
-</html>
+<script>
+    var i = $('table tbody tr').length;
+    $("#add").on('click', function (e) {
+        e.preventDefault();
 
-
-
-
-
+        $('table tbody').append(`
+        <tr>
+            <td>
+            <input type="text" name="productos[${i}].Nombre" />
+            </td>
+        </tr>`);
+        i++;
+    });
+</script>

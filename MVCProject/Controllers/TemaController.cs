@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using MVCProject.DB;
 using MVCProject.Models;
 using MVCProject.Extensions;
+using System.Threading;
 
 namespace MVCProject.Controllers
 {
@@ -20,16 +21,21 @@ namespace MVCProject.Controllers
     {       
 
         [HttpGet]        
-        public IActionResult Index()
-        {
+        public IActionResult Index(string query)
+        { 
             var usserLogged = HttpContext.Session.Get<User>("SessionLoggedUser");
 
             var context = new AppPruebaContext();
+
             var model = context.Temas
                 .Include(o => o.Categoria)
-                .Where(o => o.UserId == usserLogged.Id)
-                .ToList();
-            return View(model);
+                .Where(o => o.UserId == usserLogged.Id);
+
+            if (!String.IsNullOrEmpty(query))
+                model = model.Where(o => o.Titulo.Contains(query));
+
+            ViewBag.Query = query;
+            return View(model.ToList());
         }
 
         [HttpGet]

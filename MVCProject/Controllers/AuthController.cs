@@ -11,11 +11,22 @@ using Microsoft.AspNetCore.Mvc;
 using MVCProject.DB;
 using MVCProject.Models;
 using MVCProject.Extensions;
+using System.Security.Cryptography;
+using Microsoft.Extensions.Configuration;
 
 namespace MVCProject.Controllers
 {
     public class AuthController : Controller
     {
+        private AppPruebaContext context;
+        private IConfiguration configuration;
+
+        public AuthController(IConfiguration configuration)
+        {
+            context = new AppPruebaContext();
+            this.configuration = configuration;
+        }
+
         [HttpGet]
         public IActionResult Login()
         {
@@ -24,25 +35,15 @@ namespace MVCProject.Controllers
 
         [HttpPost]
         public IActionResult Login(string username, string password)
-        {
-            var context = new AppPruebaContext();
+        {           
 
-            var user = context.Users.FirstOrDefault(o => o.Username == username && o.Password == password);
-            
-            // user => string json => para guardar => 
-            // string json => user => cuando lo quiero leer
-
+            var user = context.Users
+                .FirstOrDefault(o => o.Username == username && o.Password == GetHashedPassword(password));
+                
             if (user == null)
                 return View();
 
             HttpContext.Session.Set("SessionLoggedUser", user);
-           
-
-            //HttpContext.Session.Set("SessionLoggedUserName", user.Username);
-            //HttpContext.Session.Set("SessionLoggedUserId", user.Username);
-            //HttpContext.Session.Set("SessionLoggedUserCompany", user.Username);
-            //HttpContext.Session.Set("SessionLoggedUserRole", user.Username);
-            //HttpContext.Session.Set("SessionLoggedUserN", user.Username);
 
 
             var claims = new List<Claim>() {                
@@ -55,6 +56,34 @@ namespace MVCProject.Controllers
             HttpContext.SignInAsync(principal);
 
             return RedirectToAction("Index", "Tema");
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(User user)
+        {
+            if(ModelState.IsValid)
+            {
+                user.Password = GetHashedPassword(user.Password);
+                context.Users.Add(user);
+                context.SaveChanges();
+            }
+
+            return RedirectToAction("Login");
+        }
+
+        private string GetHashedPassword(string input)
+        {
+            string token = configuration.GetValue<string>("Token");
+            input = input + token;
+            var sha = SHA256.Create();
+            var hashData = sha.ComputeHash(Encoding.Default.GetBytes(input));
+            return Convert.ToBase64String(hashData);
         }
 
         [HttpGet]

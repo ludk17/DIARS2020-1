@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<form action="/examen/create" method="post">
+    <h2>Preguntas</h2>
+    @{ var index = 0; }
+    @foreach (var pregunta in Model)
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-10">
+                        <input type="hidden" name="alternativas[@index].PreguntaId" value="@pregunta.Id" />
+                        @pregunta.Descripcion
+                    </div>
+                </div>
+            </div>
+            <!-- List group -->
+            <ul class="list-group">
+                @{ var j = 0; }
+                @foreach (var item in pregunta.Alternativas)
+                {
+                <li class="list-group-item">
+                    <input type="hidden" name="alternativas[@index].Valor[@j].AlternativaId" value="@item.Id" />
+                    <input type="checkbox" name="alternativas[@index].Valor[@j].EstaMarcada" value="true" />
+                    @item.Resumen
+                </li>
+                    j++;
+                }
+            </ul>
+        </div>
+        index++;
+    }
+
+    <button>Enviar</button>
+</form>
+

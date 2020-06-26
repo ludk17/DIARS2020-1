@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Lista de peliculas</h2>
+
+<form action="/" method="get">
+    <input type="text" id="name" name="name" placeholder="Escribe nombre de la pelicula a buscar" />
+    <select id="favorita">
+        <option value="">Todas</option>
+        <option value="true">Favoritas</option>
+        <option value="false">No Favoritas</option>
+    </select>
+
+    <button>Buscar</button>
+    
+
+</form>
+
+<div id="contenedor">
+
+</div>
+
+
+<script>
+
+    function init() {
+        $.ajax({
+            url: '/pelicula/_index?name=' + $('#name').val() + "&esFavorita=" + $('#favorita').val()
+        }).done(function (_index) {
+            $('#contenedor').html(_index);
+        });
+    }
+
+    $('form').on('submit', function (e) {
+        e.preventDefault();
+        init();
+    });
+
+    init();
+
+</script>

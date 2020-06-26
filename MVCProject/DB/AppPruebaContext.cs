@@ -11,6 +11,9 @@ namespace MVCProject.DB
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Pregunta> Preguntas { get; set; }
         public DbSet<Alternativa> Alternativas { get; set; }
+        public DbSet<Pelicula> Peliculas { get; set; }
+        public DbSet<Examen> Examenes { get; set; }
+        public DbSet<ExamenPregunta> ExamenPreguntas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -27,6 +30,9 @@ namespace MVCProject.DB
             modelBuilder.ApplyConfiguration(new CategoriaConfiguration());
             modelBuilder.ApplyConfiguration(new PreguntaConfiguration());
             modelBuilder.ApplyConfiguration(new AlternativaConfiguration());
+            modelBuilder.ApplyConfiguration(new PeliculaConfiguration());
+            modelBuilder.ApplyConfiguration(new ExamenConfiguration());
+            modelBuilder.ApplyConfiguration(new ExamenPreguntaConfiguration());
         }
 
     }

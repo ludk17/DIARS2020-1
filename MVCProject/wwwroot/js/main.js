@@ -1,34 +1,25 @@
 ﻿
+//$('button').val()
 
-//var $ = jQuery;
-//var h1 = $("h1#titulo");
-//h1.css('color', 'red');
+$('button').on('click', function () {
 
-var html = $('#contenido').html();
-console.log(html);
+    //$.ajax({
+    //    url: 'http://localhost:64757/home/create',
+    //    type: 'get'
+    //}).done(function (response) {
+    //    $("div#contenido").html(response);
+    //});   
 
-$('#contenido').html("<h1>Cambio de contenido</h1>")
-
-
-for (var i = 0; i < 10; i++) {
-
-}
-
-if (true) {
-
-} else {
-
-}
-
-
-$('button').on('click', function () {    
-
-    $("h1").addClass("red");
-
-    alert($("h1").hasClass("green"));
-
-    $("h1").removeClass("red");   
-
+    
 });
 
 
+$('a').on('click', function (event) {
+    event.preventDefault();
+    alert("Hola Mundo");
+});
+
+$('form').on('submit', function (e) {
+    alert("Hola Formulario");
+    e.preventDefault();
+});

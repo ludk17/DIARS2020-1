@@ -24,6 +24,9 @@
     <Content Update="Views\Home\Edit.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Pelicula\Check.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Pregunta\Create.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
